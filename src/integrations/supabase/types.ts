@@ -14,16 +14,203 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      attendance: {
+        Row: {
+          checked_in_at: string
+          id: string
+          member_id: string
+          notes: string | null
+          owner_id: string
+        }
+        Insert: {
+          checked_in_at?: string
+          id?: string
+          member_id: string
+          notes?: string | null
+          owner_id: string
+        }
+        Update: {
+          checked_in_at?: string
+          id?: string
+          member_id?: string
+          notes?: string | null
+          owner_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      members: {
+        Row: {
+          address: string | null
+          age: number | null
+          created_at: string
+          expiry_date: string
+          full_name: string
+          gender: Database["public"]["Enums"]["gender_t"] | null
+          id: string
+          joining_date: string
+          member_code: string
+          notes: string | null
+          owner_id: string
+          phone: string
+          photo_url: string | null
+          plan_months: number
+          plan_price: number
+          status: Database["public"]["Enums"]["member_status_t"]
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          age?: number | null
+          created_at?: string
+          expiry_date: string
+          full_name: string
+          gender?: Database["public"]["Enums"]["gender_t"] | null
+          id?: string
+          joining_date?: string
+          member_code: string
+          notes?: string | null
+          owner_id: string
+          phone: string
+          photo_url?: string | null
+          plan_months?: number
+          plan_price?: number
+          status?: Database["public"]["Enums"]["member_status_t"]
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          age?: number | null
+          created_at?: string
+          expiry_date?: string
+          full_name?: string
+          gender?: Database["public"]["Enums"]["gender_t"] | null
+          id?: string
+          joining_date?: string
+          member_code?: string
+          notes?: string | null
+          owner_id?: string
+          phone?: string
+          photo_url?: string | null
+          plan_months?: number
+          plan_price?: number
+          status?: Database["public"]["Enums"]["member_status_t"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          member_id: string
+          method: Database["public"]["Enums"]["payment_method_t"]
+          notes: string | null
+          owner_id: string
+          paid_on: string
+          status: Database["public"]["Enums"]["payment_status_t"]
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          member_id: string
+          method?: Database["public"]["Enums"]["payment_method_t"]
+          notes?: string | null
+          owner_id: string
+          paid_on?: string
+          status?: Database["public"]["Enums"]["payment_status_t"]
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          member_id?: string
+          method?: Database["public"]["Enums"]["payment_method_t"]
+          notes?: string | null
+          owner_id?: string
+          paid_on?: string
+          status?: Database["public"]["Enums"]["payment_status_t"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "staff"
+      gender_t: "male" | "female" | "other"
+      member_status_t: "active" | "expired" | "frozen"
+      payment_method_t: "cash" | "card" | "upi" | "bank" | "other"
+      payment_status_t: "paid" | "pending" | "overdue"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +337,12 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "staff"],
+      gender_t: ["male", "female", "other"],
+      member_status_t: ["active", "expired", "frozen"],
+      payment_method_t: ["cash", "card", "upi", "bank", "other"],
+      payment_status_t: ["paid", "pending", "overdue"],
+    },
   },
 } as const
