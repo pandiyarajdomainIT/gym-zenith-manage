@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { computeExpiry, fmtDate, generateMemberCode, PLAN_OPTIONS } from "@/lib/gym-utils";
 import { supabase } from "@/integrations/supabase/client";
+import { getMemberPhotoSignedUrl } from "@/lib/photo";
 import { toast } from "sonner";
 import { Loader2, Upload, User } from "lucide-react";
 import { z } from "zod";
@@ -47,8 +48,15 @@ export function MemberForm({ initial, onSaved, submitLabel = "Save member" }: Me
     notes: initial?.notes ?? "",
   });
   const [photoFile, setPhotoFile] = useState<File | null>(null);
-  const [photoPreview, setPhotoPreview] = useState<string | null>(initial?.photo_url ?? null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    if (!initial?.photo_url) return;
+    getMemberPhotoSignedUrl(initial.photo_url).then((u) => { if (active) setPhotoPreview(u); });
+    return () => { active = false; };
+  }, [initial?.photo_url]);
 
   useEffect(() => {
     if (!photoFile) return;
@@ -79,7 +87,7 @@ export function MemberForm({ initial, onSaved, submitLabel = "Save member" }: Me
           cacheControl: "3600", upsert: false,
         });
         if (up.error) throw up.error;
-        photo_url = supabase.storage.from("member-photos").getPublicUrl(path).data.publicUrl;
+        photo_url = path;
       }
 
       const payload = {
