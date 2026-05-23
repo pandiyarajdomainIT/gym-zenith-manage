@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useMemo, useState } from "react";
 import { Search, CalendarCheck } from "lucide-react";
+import { MemberPhoto } from "@/components/member-photo";
 
 export const Route = createFileRoute("/_authenticated/attendance")({
   component: AttendancePage,
