@@ -87,11 +87,7 @@ function MembersPage() {
               <CardContent className="p-4">
                 <div className="flex items-start gap-3">
                   <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-muted ring-1 ring-border">
-                    {m.photo_url ? (
-                      <img src={m.photo_url} alt={m.full_name} className="h-full w-full object-cover" />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center"><User className="h-6 w-6 text-muted-foreground" /></div>
-                    )}
+                    <MemberPhoto photoUrl={m.photo_url} alt={m.full_name} className="h-full w-full object-cover" />
                   </div>
                   <div className="min-w-0 flex-1">
                     <Link to="/members/$id" params={{ id: m.id }} className="block truncate font-semibold hover:text-primary">
