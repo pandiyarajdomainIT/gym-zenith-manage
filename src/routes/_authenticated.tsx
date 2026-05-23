@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import { NotificationsBell } from "@/components/notifications-bell";
 import { useAuth } from "@/lib/auth";
 import { useEffect } from "react";
 import { Dumbbell } from "lucide-react";
@@ -32,8 +33,11 @@ function Layout() {
         <div className="flex flex-1 flex-col">
           <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/80 px-4 backdrop-blur">
             <SidebarTrigger />
-            <div className="ml-auto text-xs uppercase tracking-widest text-muted-foreground">
-              Admin
+            <div className="ml-auto flex items-center gap-3">
+              <NotificationsBell />
+              <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                Admin
+              </span>
             </div>
           </header>
           <main className="flex-1 p-4 md:p-6 lg:p-8">
