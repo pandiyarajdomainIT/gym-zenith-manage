@@ -70,7 +70,7 @@ function MemberDetail() {
       <Card className="border-border/60 bg-[var(--gradient-card)]">
         <CardContent className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center">
           <div className="h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-muted ring-1 ring-border">
-            {m.photo_url ? <img src={m.photo_url} alt={m.full_name} className="h-full w-full object-cover" /> : <div className="flex h-full w-full items-center justify-center"><User className="h-10 w-10 text-muted-foreground" /></div>}
+            <MemberPhoto photoUrl={m.photo_url} alt={m.full_name} className="h-full w-full object-cover" fallbackIconClassName="h-10 w-10 text-muted-foreground" />
           </div>
           <div className="flex-1">
             <h1 className="text-2xl font-black tracking-tight">{m.full_name}</h1>
