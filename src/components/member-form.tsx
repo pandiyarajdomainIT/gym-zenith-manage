@@ -92,16 +92,15 @@ export function MemberForm({ initial, onSaved, submitLabel = "Save member" }: Me
         photo_url = path;
       }
 
+      const { plan_type, ...rest } = parsed.data;
       const payload = {
-        ...parsed.data,
-        address: parsed.data.address || null,
-        notes: parsed.data.notes || null,
+        ...rest,
+        address: rest.address || null,
+        notes: `[${plan_type}]${rest.notes ? " " + rest.notes : ""}`,
         expiry_date: expiry.toISOString().slice(0, 10),
         owner_id: uid,
         photo_url,
       };
-      // plan_type is captured in notes prefix to avoid schema changes
-      payload.notes = `[${parsed.data.plan_type}]${payload.notes ? " " + payload.notes : ""}`;
 
       if (initial?.id) {
         const { error } = await supabase.from("members").update(payload).eq("id", initial.id);
