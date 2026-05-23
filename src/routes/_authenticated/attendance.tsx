@@ -9,7 +9,7 @@ import { MemberPhoto } from "@/components/member-photo";
 
 export const Route = createFileRoute("/_authenticated/attendance")({
   component: AttendancePage,
-  head: () => ({ meta: [{ title: "Attendance — IronCore" }] }),
+  head: () => ({ meta: [{ title: "Attendance — Endurance" }] }),
 });
 
 function AttendancePage() {

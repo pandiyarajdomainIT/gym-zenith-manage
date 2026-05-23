@@ -13,7 +13,7 @@ import { FileDown, FileText } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/reports")({
   component: ReportsPage,
-  head: () => ({ meta: [{ title: "Reports — IronCore" }] }),
+  head: () => ({ meta: [{ title: "Reports — Endurance" }] }),
 });
 
 function ReportsPage() {

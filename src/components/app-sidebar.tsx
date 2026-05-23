@@ -7,8 +7,8 @@ import {
   Wallet,
   BarChart3,
   LogOut,
-  Dumbbell,
 } from "lucide-react";
+import enduranceLogo from "@/assets/endurance-logo.jpeg";
 import {
   Sidebar,
   SidebarContent,
@@ -47,13 +47,15 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-sidebar-border">
         <div className="flex items-center gap-2 px-2 py-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-[var(--shadow-glow)]">
-            <Dumbbell className="h-5 w-5" />
-          </div>
+          <img
+            src={enduranceLogo}
+            alt="Endurance Fitness Studio"
+            className="h-9 w-9 rounded-lg object-cover shadow-[var(--shadow-glow)]"
+          />
           {!collapsed && (
             <div className="flex flex-col leading-tight">
-              <span className="text-sm font-bold tracking-wider text-sidebar-foreground">IRONCORE</span>
-              <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Gym OS</span>
+              <span className="text-sm font-bold tracking-wider text-sidebar-foreground">ENDURANCE</span>
+              <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Fitness Studio</span>
             </div>
           )}
         </div>

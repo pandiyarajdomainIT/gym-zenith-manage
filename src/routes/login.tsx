@@ -7,12 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dumbbell, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import enduranceLogo from "@/assets/endurance-logo.jpeg";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
-  head: () => ({ meta: [{ title: "Sign in — IronCore" }] }),
+  head: () => ({ meta: [{ title: "Sign in — Endurance" }] }),
 });
 
 function LoginPage() {
@@ -56,13 +57,15 @@ function LoginPage() {
       </div>
       <div className="relative z-10 w-full max-w-md">
         <div className="mb-8 flex flex-col items-center gap-3">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[var(--shadow-glow)]">
-            <Dumbbell className="h-7 w-7" />
-          </div>
+          <img
+            src={enduranceLogo}
+            alt="Endurance Fitness Studio"
+            className="h-16 w-16 rounded-2xl object-cover shadow-[var(--shadow-glow)]"
+          />
           <div className="text-center">
-            <h1 className="text-3xl font-black tracking-tight">IRONCORE</h1>
+            <h1 className="text-3xl font-black tracking-tight">ENDURANCE</h1>
             <p className="mt-1 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              Gym Management OS
+              Fitness Studio
             </p>
           </div>
         </div>

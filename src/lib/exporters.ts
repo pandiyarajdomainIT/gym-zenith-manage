@@ -38,7 +38,7 @@ export function exportMembersExcel(rows: MemberRow[]) {
 export function exportMembersPdf(rows: MemberRow[]) {
   const doc = new jsPDF();
   doc.setFontSize(16);
-  doc.text("IronCore — Members", 14, 16);
+  doc.text("Endurance — Members", 14, 16);
   doc.setFontSize(10);
   doc.text(`Generated ${new Date().toLocaleString()}  ·  ${rows.length} members`, 14, 22);
   autoTable(doc, {
