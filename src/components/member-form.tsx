@@ -23,6 +23,7 @@ const Schema = z.object({
   joining_date: z.string().min(1),
   plan_months: z.coerce.number().int().min(1).max(60),
   plan_price: z.coerce.number().min(0).max(1_000_000),
+  plan_type: z.enum(["general", "cardio", "personal_training"]),
   notes: z.string().max(500).optional().or(z.literal("")),
 });
 
@@ -45,6 +46,7 @@ export function MemberForm({ initial, onSaved, submitLabel = "Save member" }: Me
     joining_date: initial?.joining_date ?? new Date().toISOString().slice(0, 10),
     plan_months: initial?.plan_months ?? 1,
     plan_price: initial?.plan_price ?? 0,
+    plan_type: initial?.plan_type ?? "general",
     notes: initial?.notes ?? "",
   });
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -98,6 +100,8 @@ export function MemberForm({ initial, onSaved, submitLabel = "Save member" }: Me
         owner_id: uid,
         photo_url,
       };
+      // plan_type is captured in notes prefix to avoid schema changes
+      payload.notes = `[${parsed.data.plan_type}]${payload.notes ? " " + payload.notes : ""}`;
 
       if (initial?.id) {
         const { error } = await supabase.from("members").update(payload).eq("id", initial.id);
@@ -190,6 +194,16 @@ export function MemberForm({ initial, onSaved, submitLabel = "Save member" }: Me
         </Row>
         <Row label="Plan price">
           <Input type="number" min={0} step="1" value={v.plan_price} onChange={(e) => set("plan_price", Number(e.target.value))} />
+        </Row>
+        <Row label="Fee type" required>
+          <Select value={v.plan_type} onValueChange={(val) => set("plan_type", val as MemberFormValues["plan_type"])}>
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="general">General Fee</SelectItem>
+              <SelectItem value="cardio">Cardio Fee</SelectItem>
+              <SelectItem value="personal_training">Personal Training</SelectItem>
+            </SelectContent>
+          </Select>
         </Row>
         <Row label="Member code" required>
           <Input value={v.member_code} onChange={(e) => set("member_code", e.target.value)} maxLength={40} required />
