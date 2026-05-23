@@ -81,10 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Premium gym management: members, attendance, payments, and reports." },
       { name: "author", content: "IronCore" },
       { property: "og:title", content: "IronCore — Gym Management" },
-      { property: "og:description", content: "Manage members, plans, attendance, payments and revenue." },
+      { property: "og:description", content: "Premium gym management: members, attendance, payments, and reports." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "IronCore — Gym Management" },
+      { name: "twitter:description", content: "Premium gym management: members, attendance, payments, and reports." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/39a851da-a73e-4b69-8697-c13998081aa2/id-preview-94fe4521--df591bae-f5e0-4a51-8987-3837ddebeaa0.lovable.app-1779547927000.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/39a851da-a73e-4b69-8697-c13998081aa2/id-preview-94fe4521--df591bae-f5e0-4a51-8987-3837ddebeaa0.lovable.app-1779547927000.png" },
     ],
     links: [
       {
