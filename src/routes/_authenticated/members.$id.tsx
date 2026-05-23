@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MemberForm } from "@/components/member-form";
 import { ExpiryBadge } from "@/components/expiry-badge";
 import { MemberPhoto } from "@/components/member-photo";
+import { RenewButton } from "@/components/renew-button";
 import { fmtDate, currency } from "@/lib/gym-utils";
 import { toast } from "sonner";
 import { ArrowLeft, CalendarCheck, User, Phone, MapPin, Plus } from "lucide-react";
@@ -65,7 +66,10 @@ function MemberDetail() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <Button asChild variant="ghost" size="sm"><Link to="/members"><ArrowLeft className="mr-2 h-4 w-4" />Back</Link></Button>
-        <ExpiryBadge expiryDate={m.expiry_date} />
+        <div className="flex items-center gap-2">
+          <ExpiryBadge expiryDate={m.expiry_date} />
+          <RenewButton memberId={m.id} currentExpiry={m.expiry_date} currentPrice={Number(m.plan_price)} />
+        </div>
       </div>
 
       <Card className="border-border/60 bg-[var(--gradient-card)]">

@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { currency, daysUntil, fmtDate } from "@/lib/gym-utils";
 import { ExpiryBadge } from "@/components/expiry-badge";
+import { RenewButton } from "@/components/renew-button";
 import { format, startOfMonth, subMonths } from "date-fns";
 
 export const Route = createFileRoute("/_authenticated/")({
@@ -188,19 +189,47 @@ function Dashboard() {
           ) : (
             <div className="divide-y divide-border">
               {expiring.map((m) => (
-                <Link
-                  key={m.id} to="/members/$id" params={{ id: m.id }}
-                  className="flex items-center justify-between gap-3 py-3 hover:bg-accent/30 -mx-2 px-2 rounded-md transition"
-                >
-                  <div>
-                    <div className="font-semibold">{m.full_name}</div>
+                <div key={m.id} className="flex items-center justify-between gap-3 py-3">
+                  <Link to="/members/$id" params={{ id: m.id }} className="min-w-0 flex-1 hover:underline">
+                    <div className="font-semibold truncate">{m.full_name}</div>
                     <div className="text-xs text-muted-foreground">{m.phone} · {m.member_code}</div>
-                  </div>
+                  </Link>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs text-muted-foreground">{fmtDate(m.expiry_date)}</span>
+                    <span className="hidden sm:inline text-xs text-muted-foreground">{fmtDate(m.expiry_date)}</span>
                     <ExpiryBadge expiryDate={m.expiry_date} />
+                    <RenewButton memberId={m.id} currentExpiry={m.expiry_date} currentPrice={Number(m.plan_price)} />
                   </div>
-                </Link>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card className="border-destructive/40 bg-destructive/5">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-destructive">
+            <AlertTriangle className="h-5 w-5" /> Expired members
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {expired.length === 0 ? (
+            <p className="text-sm text-muted-foreground">No expired memberships. Nice work.</p>
+          ) : (
+            <div className="divide-y divide-destructive/20">
+              {expired.map((m) => (
+                <div key={m.id} className="flex items-center justify-between gap-3 py-3">
+                  <Link to="/members/$id" params={{ id: m.id }} className="min-w-0 flex-1 hover:underline">
+                    <div className="font-semibold truncate">{m.full_name}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {m.phone} · {m.member_code} · expired {fmtDate(m.expiry_date)}
+                    </div>
+                  </Link>
+                  <div className="flex items-center gap-3">
+                    <ExpiryBadge expiryDate={m.expiry_date} />
+                    <RenewButton memberId={m.id} currentExpiry={m.expiry_date} currentPrice={Number(m.plan_price)} />
+                  </div>
+                </div>
               ))}
             </div>
           )}
