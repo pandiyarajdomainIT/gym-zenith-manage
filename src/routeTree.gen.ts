@@ -14,8 +14,8 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
 import { Route as AuthenticatedPaymentsRouteImport } from './routes/_authenticated/payments'
-import { Route as AuthenticatedMembersRouteImport } from './routes/_authenticated/members'
 import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
+import { Route as AuthenticatedMembersIndexRouteImport } from './routes/_authenticated/members.index'
 import { Route as AuthenticatedMembersNewRouteImport } from './routes/_authenticated/members.new'
 import { Route as AuthenticatedMembersIdRouteImport } from './routes/_authenticated/members.$id'
 
@@ -43,58 +43,59 @@ const AuthenticatedPaymentsRoute = AuthenticatedPaymentsRouteImport.update({
   path: '/payments',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedMembersRoute = AuthenticatedMembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedAttendanceRoute = AuthenticatedAttendanceRouteImport.update({
   id: '/attendance',
   path: '/attendance',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedMembersIndexRoute =
+  AuthenticatedMembersIndexRouteImport.update({
+    id: '/members/',
+    path: '/members/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedMembersNewRoute = AuthenticatedMembersNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => AuthenticatedMembersRoute,
+  id: '/members/new',
+  path: '/members/new',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedMembersIdRoute = AuthenticatedMembersIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => AuthenticatedMembersRoute,
+  id: '/members/$id',
+  path: '/members/$id',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/login': typeof LoginRoute
   '/attendance': typeof AuthenticatedAttendanceRoute
-  '/members': typeof AuthenticatedMembersRouteWithChildren
   '/payments': typeof AuthenticatedPaymentsRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/members/$id': typeof AuthenticatedMembersIdRoute
   '/members/new': typeof AuthenticatedMembersNewRoute
+  '/members/': typeof AuthenticatedMembersIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/attendance': typeof AuthenticatedAttendanceRoute
-  '/members': typeof AuthenticatedMembersRouteWithChildren
   '/payments': typeof AuthenticatedPaymentsRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/': typeof AuthenticatedIndexRoute
   '/members/$id': typeof AuthenticatedMembersIdRoute
   '/members/new': typeof AuthenticatedMembersNewRoute
+  '/members': typeof AuthenticatedMembersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/_authenticated/attendance': typeof AuthenticatedAttendanceRoute
-  '/_authenticated/members': typeof AuthenticatedMembersRouteWithChildren
   '/_authenticated/payments': typeof AuthenticatedPaymentsRoute
   '/_authenticated/reports': typeof AuthenticatedReportsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/members/$id': typeof AuthenticatedMembersIdRoute
   '/_authenticated/members/new': typeof AuthenticatedMembersNewRoute
+  '/_authenticated/members/': typeof AuthenticatedMembersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -102,32 +103,32 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/attendance'
-    | '/members'
     | '/payments'
     | '/reports'
     | '/members/$id'
     | '/members/new'
+    | '/members/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
     | '/attendance'
-    | '/members'
     | '/payments'
     | '/reports'
     | '/'
     | '/members/$id'
     | '/members/new'
+    | '/members'
   id:
     | '__root__'
     | '/_authenticated'
     | '/login'
     | '/_authenticated/attendance'
-    | '/_authenticated/members'
     | '/_authenticated/payments'
     | '/_authenticated/reports'
     | '/_authenticated/'
     | '/_authenticated/members/$id'
     | '/_authenticated/members/new'
+    | '/_authenticated/members/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -172,13 +173,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPaymentsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/members': {
-      id: '/_authenticated/members'
-      path: '/members'
-      fullPath: '/members'
-      preLoaderRoute: typeof AuthenticatedMembersRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/attendance': {
       id: '/_authenticated/attendance'
       path: '/attendance'
@@ -186,50 +180,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAttendanceRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/members/': {
+      id: '/_authenticated/members/'
+      path: '/members'
+      fullPath: '/members/'
+      preLoaderRoute: typeof AuthenticatedMembersIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/members/new': {
       id: '/_authenticated/members/new'
-      path: '/new'
+      path: '/members/new'
       fullPath: '/members/new'
       preLoaderRoute: typeof AuthenticatedMembersNewRouteImport
-      parentRoute: typeof AuthenticatedMembersRoute
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/members/$id': {
       id: '/_authenticated/members/$id'
-      path: '/$id'
+      path: '/members/$id'
       fullPath: '/members/$id'
       preLoaderRoute: typeof AuthenticatedMembersIdRouteImport
-      parentRoute: typeof AuthenticatedMembersRoute
+      parentRoute: typeof AuthenticatedRoute
     }
   }
 }
 
-interface AuthenticatedMembersRouteChildren {
-  AuthenticatedMembersIdRoute: typeof AuthenticatedMembersIdRoute
-  AuthenticatedMembersNewRoute: typeof AuthenticatedMembersNewRoute
-}
-
-const AuthenticatedMembersRouteChildren: AuthenticatedMembersRouteChildren = {
-  AuthenticatedMembersIdRoute: AuthenticatedMembersIdRoute,
-  AuthenticatedMembersNewRoute: AuthenticatedMembersNewRoute,
-}
-
-const AuthenticatedMembersRouteWithChildren =
-  AuthenticatedMembersRoute._addFileChildren(AuthenticatedMembersRouteChildren)
-
 interface AuthenticatedRouteChildren {
   AuthenticatedAttendanceRoute: typeof AuthenticatedAttendanceRoute
-  AuthenticatedMembersRoute: typeof AuthenticatedMembersRouteWithChildren
   AuthenticatedPaymentsRoute: typeof AuthenticatedPaymentsRoute
   AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedMembersIdRoute: typeof AuthenticatedMembersIdRoute
+  AuthenticatedMembersNewRoute: typeof AuthenticatedMembersNewRoute
+  AuthenticatedMembersIndexRoute: typeof AuthenticatedMembersIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAttendanceRoute: AuthenticatedAttendanceRoute,
-  AuthenticatedMembersRoute: AuthenticatedMembersRouteWithChildren,
   AuthenticatedPaymentsRoute: AuthenticatedPaymentsRoute,
   AuthenticatedReportsRoute: AuthenticatedReportsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedMembersIdRoute: AuthenticatedMembersIdRoute,
+  AuthenticatedMembersNewRoute: AuthenticatedMembersNewRoute,
+  AuthenticatedMembersIndexRoute: AuthenticatedMembersIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

@@ -15,7 +15,7 @@ import {
   AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export const Route = createFileRoute("/_authenticated/members")({
+export const Route = createFileRoute("/_authenticated/members/")({
   component: MembersPage,
   head: () => ({ meta: [{ title: "Members — IronCore" }] }),
 });
