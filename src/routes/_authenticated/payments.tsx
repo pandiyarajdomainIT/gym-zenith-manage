@@ -9,7 +9,7 @@ import { Search } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/payments")({
   component: PaymentsPage,
-  head: () => ({ meta: [{ title: "Payments — IronCore" }] }),
+  head: () => ({ meta: [{ title: "Payments — Endurance" }] }),
 });
 
 function PaymentsPage() {

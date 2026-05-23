@@ -14,7 +14,7 @@ import { format, startOfMonth, subMonths } from "date-fns";
 
 export const Route = createFileRoute("/_authenticated/")({
   component: Dashboard,
-  head: () => ({ meta: [{ title: "Dashboard — IronCore" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — Endurance" }] }),
 });
 
 const COLORS = ["hsl(var(--chart-1))", "hsl(var(--chart-2))", "hsl(var(--chart-3))"];

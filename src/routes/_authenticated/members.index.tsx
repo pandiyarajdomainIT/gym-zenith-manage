@@ -18,7 +18,7 @@ import {
 
 export const Route = createFileRoute("/_authenticated/members/")({
   component: MembersPage,
-  head: () => ({ meta: [{ title: "Members — IronCore" }] }),
+  head: () => ({ meta: [{ title: "Members — Endurance" }] }),
 });
 
 function MembersPage() {

@@ -12,7 +12,7 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
-  head: () => ({ meta: [{ title: "Sign in — IronCore" }] }),
+  head: () => ({ meta: [{ title: "Sign in — Endurance" }] }),
 });
 
 function LoginPage() {
@@ -60,7 +60,7 @@ function LoginPage() {
             <Dumbbell className="h-7 w-7" />
           </div>
           <div className="text-center">
-            <h1 className="text-3xl font-black tracking-tight">IRONCORE</h1>
+            <h1 className="text-3xl font-black tracking-tight">ENDURANCE</h1>
             <p className="mt-1 text-xs uppercase tracking-[0.3em] text-muted-foreground">
               Gym Management OS
             </p>

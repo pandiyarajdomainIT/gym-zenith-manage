@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/_authenticated/members/new")({
   component: NewMember,
-  head: () => ({ meta: [{ title: "Add Member — IronCore" }] }),
+  head: () => ({ meta: [{ title: "Add Member — Endurance" }] }),
 });
 
 function NewMember() {
