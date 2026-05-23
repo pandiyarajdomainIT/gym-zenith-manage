@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MemberForm } from "@/components/member-form";
 import { ExpiryBadge } from "@/components/expiry-badge";
+import { MemberPhoto } from "@/components/member-photo";
 import { fmtDate, currency } from "@/lib/gym-utils";
 import { toast } from "sonner";
 import { ArrowLeft, CalendarCheck, User, Phone, MapPin, Plus } from "lucide-react";
