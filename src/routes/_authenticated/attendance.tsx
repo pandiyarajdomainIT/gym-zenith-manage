@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useMemo, useState } from "react";
 import { Search, CalendarCheck } from "lucide-react";
+import { MemberPhoto } from "@/components/member-photo";
 
 export const Route = createFileRoute("/_authenticated/attendance")({
   component: AttendancePage,
@@ -65,7 +66,7 @@ function AttendancePage() {
               return (
                 <Link key={r.id} to="/members/$id" params={{ id: m.id }} className="flex items-center gap-3 py-3 hover:bg-accent/30 -mx-2 px-2 rounded-md">
                   <div className="h-10 w-10 overflow-hidden rounded-lg bg-muted ring-1 ring-border">
-                    {m.photo_url ? <img src={m.photo_url} alt="" className="h-full w-full object-cover" /> : <div className="flex h-full w-full items-center justify-center"><CalendarCheck className="h-4 w-4 text-muted-foreground" /></div>}
+                    <MemberPhoto photoUrl={m.photo_url} className="h-full w-full object-cover" fallbackIconClassName="h-4 w-4 text-muted-foreground" />
                   </div>
                   <div className="flex-1">
                     <div className="font-semibold">{m.full_name}</div>
